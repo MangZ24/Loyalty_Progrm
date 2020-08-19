@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+
+
+        <record model="ir.ui.view" id="invoice_view_order_form_inherited">
+            <field name="name">invoice.view.order.form.inherited</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form" />
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='partner_id']" position="before">
+                    <field  name="card_ids" attrs="{'readonly': [('state', '!=', 'open'), ('state', '!=', 'draft')]}"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_untaxed']" position="before">
+                    <field  name="points_received" attrs="{'invisible': ['|', ('card_ids', '=', False)]}"/>
+                    <field  name="available_point" attrs="{'invisible': ['|', ('card_ids', '=', False)]}"/>
+                </xpath>
+                <xpath expr="//field[@name='amount_total']" position="after">
+                    <field  name="points_used" attrs="{'readonly': [('state', '!=', 'open'), ('state', '!=', 'draft')], 'invisible': ['|', ('card_ids', '=', False)]}"/>
+                    <field name="discounted_amount" class="oe_subtotal_footer_separator" attrs="{'readonly': 1}"/>
+                </xpath>
+            </field>
+        </record>
+
+        <!-- Inherit Form View to Modify it -->
+        <record id="view_account_payment_invoice_form_inherited" model="ir.ui.view">
+            <field name="name">view.account.payment.invoice.form.inherited</field>
+            <field name="model">account.payment</field>
+            <field name="inherit_id" ref="account.view_account_payment_invoice_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='journal_id']" position="after">
+<!--                     Add your fields or attributes here -->
+                        <field name="use_point"/>
+<!--                        <p class="oe_gray" attrs="{'invisible': [('use_point_trigger', '=', True)]}"> Generate aging of inventory report base on the selected branch. </p>-->
+<!--                        <p class="oe_gray" attrs="{'invisible': [('use_point_trigger', '=', False)]}"> Generate aging of inventory across all branch. </p>-->
+                        <field name="available_points" attrs="{'invisible': [('use_point', '!=', True)], 'readonly': 1}"/>
+                </xpath>
+
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

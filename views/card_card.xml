@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data>
+        <record id="view_card_form" model="ir.ui.view">
+            <field name="name">view.card.form</field>
+            <field name="model">card.card</field>
+            <field name="arch" type="xml">
+                <form string="Card Form View">
+                    <header>
+                        <button name="btn_confirm" type="object" string="Confirm" class="oe_highlight" states="draft"/>
+
+                        <button name="btn_activate" type="object" string="Activate" class="oe_highlight" states="confirmed,locked"/>
+                        <button name="btn_cancel" type="object" string="Cancel" states="confirmed"/>
+
+                        <button name="btn_draft" type="object" string="Return to Draft" states="canceled"/>
+
+                        <button name="btn_lock" type="object" string="Lock" states="in_use"/>
+
+                        <field name="state" widget="statusbar"/>
+                    </header>
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="card_number" readonly="1" />
+                            </h1>
+                        </div>
+                        <group col="2" string="Card">
+							<group>
+								<field name="barcode" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+								<field name="type_id" attrs="{'readonly': [('state', '!=', 'draft')]}" domain="[('state', '=', 'activated')]" options="{'no_create': True,}"/>
+								<field name="partner_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+							</group>
+                        </group>
+                        <group col="2" string="Dates">
+                            <group>
+                                <field name="expected_date" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+
+                            </group>
+                            <group>
+                                <field name="activation_date"/>
+                                <field name="expiration_date"/>
+                            </group>
+                        </group>
+                        <notebook>
+                            <page string="Invoices">
+                                <field string="Invoices" mode="tree" name="account_invoice_lines" attrs="{'readonly': '1'}">
+                                    <tree default_order="origin">
+                                        <field name="origin"/>
+                                        <field name="number"/>
+                                        <field name="points_received"/>
+                                        <field name="points_used"/>
+                                        <field name="state"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_card_tree" model="ir.ui.view">
+            <field name="name">view.card.tree</field>
+            <field name="model">card.card</field>
+            <field name="arch" type="xml">
+                <tree string="Card Tree View">
+                    <field name="card_number"/>
+                    <field name="partner_id"/>
+                    <field name="type_id"/>
+                    <field name="activation_date"/>
+                    <field name="expiration_date"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_generate_card_form" model="ir.ui.view">
+            <field name="name">view.generate.card.form</field>
+            <field name="model">generate.cards</field>
+            <field name="arch" type="xml">
+                <form string="Generate Cards">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="qty"/>
+                            </group>
+                            <group>
+                            <field name="type_id" domain="[('state', '=', 'activated')]" options="{'no_create': True,}"/>
+                            </group>
+                        </group>
+                    </sheet>
+                    <footer>
+						<button class="oe_highlight" string="Create" type="object"
+							name="button_create" />
+						or
+						<button string="Cancel" class="oe_link" special="cancel" />
+					</footer>
+                </form>
+            </field>
+        </record>
+
+
+    </data>
+</odoo>

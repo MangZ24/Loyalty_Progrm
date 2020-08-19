@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <template id="web_asset_backend_ext" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <script type="text/javascript"
+                    src="/pos_loyalty/static/src/js/loyalty.js"/>
+        </xpath>
+    </template>
+</odoo>

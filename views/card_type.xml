@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+<data>
+    <record id="view_card_type_form" model="ir.ui.view">
+        <field name="name">view.card.type.form</field>
+        <field name="model">card.type</field>
+        <field name="arch" type="xml">
+        <form string="Card Type">
+            <header>
+                <button name="btn_activate" type="object" string="Activate" class="oe_highlight" states="draft,deactivated"/>
+                <button name="btn_draft" type="object" string="Draft" class="oe_default" states="draft"/>
+                <button name="btn_deactivate" type="object" string="Deactivate" states="activated"/>
+                <button name="btn_lock" type="object" string="Lock" states="deactivated"/>
+
+                <field name="state" widget="statusbar"/>
+            </header>
+            <sheet>
+                <div class="oe_title">
+                    <h1>
+                        <field name="name"/>
+                    </h1>
+                </div>
+                <group col="2" string="Type Information">
+                    <group>
+                        <field name="period_id" widget="selection"/>
+                        <field name="rule_id" widget="selection" domain="[('is_active', '=', True)]"/>
+                    </group>
+                    <group>
+                        <field name="categ_id" widget="selection" domain="[('is_active', '=', True)]"/>
+                        <field name="issue_hard_card"/>
+                    </group>
+                </group>
+                <group>
+                    <group name="benefit" string="Benefit">
+                        <field name="basic_point"/>
+                    </group>
+                    <div style="width:100%">
+                        <group>
+                            <field name="note" widget="html"/>
+                        </group>
+                    </div>
+                </group>
+            </sheet>
+        </form>
+        </field>
+    </record>
+
+    <record id="view_card_type_tree" model="ir.ui.view">
+        <field name="name">view.card.type.list</field>
+        <field name="model">card.type</field>
+        <field name="arch" type="xml">
+        <tree string="Card Type">
+            <field name="name"/>
+            <field name="period_id"/>
+            <field name="basic_point"/>
+            <field name="state"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_card_type_search" model="ir.ui.view">
+        <field name="name">view.card.type.search</field>
+        <field name="model">card.type</field>
+        <field name="arch" type="xml">
+        <search string="Card Type">
+            <field name="name"/>
+            <field name="period_id"/>
+            <group expand="0" string="Group By...">
+            <filter name="group_by_period" string="Period" context="{'group_by':'period_id'}"/>
+            <filter name="filter_by_period" string="Deactivated" domain="[('active', '=', False)]"/>
+            </group>
+            </search>
+        </field>
+    </record>
+</data>
+</odoo>

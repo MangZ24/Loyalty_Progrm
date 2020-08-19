@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<odoo>
+    <data>
+
+        <record id="action_card_card" model="ir.actions.act_window">
+            <field name="name">Card</field>
+            <field name="res_model">card.card</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        <record id="action_generate_card" model="ir.actions.act_window">
+            <field name="name">Card</field>
+            <field name="res_model">generate.cards</field>
+            <field name="view_mode">form</field>
+            <field name="view_id" ref="view_generate_card_form"/>
+            <field name="target">new</field>
+        </record>
+
+        <record id="action_card_type" model="ir.actions.act_window">
+            <field name="name">Card Type</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">card.type</field>
+             <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    Create Card Type
+                </p>
+                <p>
+                    By setting up the RULE, PERIOD, CATEGORY first, we could easily configure what card type we need to apply per customer.
+                </p>
+            </field>
+        </record>
+
+        <record id="action_card_period" model="ir.actions.act_window">
+            <field name="name">Card Period</field>
+            <field name="res_model">card.period</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+                  Create Category
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+                Configuration for card holders. You could set category per card.
+              </p>
+            </field>
+        </record>
+
+
+        <record id="action_card_category" model="ir.actions.act_window">
+            <field name="name">Card Category</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">card.category</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+                  Create Category
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+                Configuration for card holders. You could set category per card.
+              </p>
+            </field>
+        </record>
+
+        <record id="action_card_rule" model="ir.actions.act_window">
+            <field name="name">Card Rule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">card.rule</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                <!-- Add Text Here -->
+                  Create Rule
+              </p><p>
+                <!-- More details about what a user can do with this object will be OK -->
+                Configuration for card holders. You could set how much points a customer could earn with minimum amount base on their total purchase value.
+              </p>
+            </field>
+        </record>
+        <menuitem id="menu_loyalty" parent="sales_team.menu_base_partner" name="Loyalty" sequence="7" groups="base.group_system"/>
+            <menuitem id="menu_card_card" name="Card" parent="menu_loyalty" action="action_card_card" sequence="1"></menuitem>
+            <menuitem id="menu_generate_card" name="Generate Card" parent="menu_loyalty" action="action_generate_card" sequence="2"></menuitem>
+
+        <menuitem id="menu_loyalty_config" parent="sales_team.menu_sale_config" name="Loyalty Config" sequence="99" groups="base.group_system"/>
+            <menuitem id="menu_card_type_action" name="Card Type" parent="menu_loyalty_config" action="action_card_type" sequence="1"></menuitem>
+            <menuitem id="menu_card_period_action" name="Card Period" parent="menu_loyalty_config" action="action_card_period" sequence="2"></menuitem>
+            <menuitem id="menu_card_category_action" name="Card Category" parent="menu_loyalty_config" action="action_card_category" sequence="3"></menuitem>
+            <menuitem id="menu_card_rule_action" name="Card Rule" parent="menu_loyalty_config" action="action_card_rule" sequence="4"></menuitem>
+
+
+
+
+    </data>
+</odoo>

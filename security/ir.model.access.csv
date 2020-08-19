@@ -1,0 +1,2 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_pos_loyalty_pos_loyalty,pos_loyalty.pos_loyalty,model_pos_loyalty_pos_loyalty,,1,0,0,0
